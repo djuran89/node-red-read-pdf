@@ -62,4 +62,4 @@ Results of the parsing will be returned the object corresponding to a pages in t
         }
     ]
 }
-```# node-red-read-pdf
+```
