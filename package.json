@@ -1,0 +1,29 @@
+{
+	"name": "node-red-read-pdf",
+	"version": "1.0.0",
+	"description": "Read PDF files for node-red",
+	"author": {
+		"name": "Aleksandar Djuran",
+		"email": "djuran89@icloud.com"
+	},
+	"license": "ISC",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/djuran89/node-red-read-pdf.git"
+	},
+	"homepage": "https://github.com/djuran89/node-red-read-pdf#readme",
+	"keywords": [
+		"node-red",
+		"pdf parser",
+		"pdf"
+	],
+	"dependencies": {
+		"pdf-parse": "^1.1.1",
+		"pdf2json": "^2.0.1"
+	},
+	"node-red": {
+		"nodes": {
+			"read-pdf": "index.js"
+		}
+	}
+}

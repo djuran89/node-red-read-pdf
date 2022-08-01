@@ -1,0 +1,82 @@
+<script type="text/x-red" data-template-name="read-pdf">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-filename"><i class="fa fa-file"></i> <span>Filename</span></label>
+    <input type="text" id="node-input-filename" placeholder="Path to file">
+  </div>
+
+  <div class="form-row">
+    <input type="checkbox" id="node-input-advance" style="display:inline-block; width:auto; vertical-align: baseline">
+    <label for="node-input-advance" style="width: 70%;"><span>Export PDF in advance mode</span></label>
+  </div>
+
+</script>
+
+<script type="text/x-red" data-help-name="read-pdf">
+  <h3>Inputs</h3>
+	<dl class="message-properties">
+    <dt class="optional">payload<span class="property-type">buffer | string</span></dt>
+    <dd>Buffer object that corresponds to a pdf file or a filepath leading to a pdf file.</dd>
+  </dl>
+  <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload<span class="property-type">object</span></dt>
+        <dd>Results of the parsing will be returned as text corresponding to a pages in the pdf.</dd>
+		<dd>
+<pre>{
+  numpages: 'Number of pages',
+  numrender: 'Number total page',
+  info: {
+      PDFFormatVersion: 'PDFFormatVersion',
+      IsAcroFormPresent: false,
+      IsXFAPresent: false,
+      Creator: 'Creator',
+      Producer: 'Producer',
+      CreationDate: 'CreationDate'
+  },
+  metadata: null,
+  text: 'PDF content',
+  version: 'Version of PDF'
+}</pre>
+        </dd>
+    </dl>
+  <h3>More info</h3>
+	<p><a href="https://www.npmjs.com/package/node-red-read-pdf">https://www.npmjs.com/package/node-red-read-pdf</a></p>
+</script>
+
+<style type="text/css">
+  /*.node_label_white {
+    fill: white;
+  }
+  #palette_node_read-pdf>div.palette_label {
+    color: white;
+  } */
+</style>
+
+<script type="text/javascript">
+  (function() {
+    RED.nodes.registerType('read-pdf', {
+      category: 'parser',
+      color: '#FF7676',
+      defaults: {
+        name: { value: "" },
+        filename: { value: "" },
+        advance: { value: false },
+      },
+      inputs: 1,
+      outputs: 1,
+      paletteLabel: 'Read PDF',
+      icon: 'file.png',
+      label: function() {
+        return this.name || 'Read PDF';
+      },
+      labelStyle: function() {
+        return this.name ? 'node_label_italic node_label_white' : 'node_label_white';
+      }
+    });
+  })();
+</script>
