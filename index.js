@@ -1,12 +1,15 @@
 "use strict";
 module.exports = function(RED) {
     const fs = require('fs');
+    const path = require('path');
     const pdf = require("pdf-parse");
     const PDFParser = require("pdf2json");
 
     const readFile = (filePath) => {
         const isFileExist = fs.existsSync(filePath);
+        const ext = path.extname(filePath).toLocaleLowerCase();
         if (!isFileExist) throw new Error("File don't exist.");
+        if (ext !== ".pdf") throw new Error("File is not pdf.");
 
         return fs.readFileSync(filePath);
     };
@@ -26,6 +29,15 @@ module.exports = function(RED) {
         });
     }
 
+    const errorHandler = (err) => {
+        let errMsg = err.message || err;
+        if (errMsg.includes('Error: ')) errMsg = errMsg.split("Error: ")[1];
+        if (errMsg.includes('Invalid XRef stream header')) errMsg = "File is not pdf.";
+
+        return errMsg;
+
+    }
+
     function output(config) {
         const node = this;
         RED.nodes.createNode(this, config);
@@ -36,19 +48,18 @@ module.exports = function(RED) {
                 const filename = config.filename;
                 const advance = config.advance;
                 const isBuffer = Buffer.isBuffer(input);
-
-                node.status({ fill: 'blue', shape: 'dot', text: "Reading file..." });
                 const dataBuffer = isBuffer ? input : readFile(filename, node);
 
                 node.status({ fill: 'blue', shape: 'dot', text: "Converting..." });
                 const pdfData = advance ? await runPDF2JSON(dataBuffer) : await runPDFParse(dataBuffer);
-                node.status({});
-
+                
                 msg.payload = pdfData;
+                node.status({});
                 node.send(msg);
             } catch (err) {
-                node.status({ fill: 'red', shape: 'dot', text: err.message });
-                node.error(err.message, msg);
+                const errMsg = errorHandler(err, node);
+                node.status({ fill: 'red', shape: 'dot', text: errMsg });
+                node.error(errMsg, msg);
             }
         });
     }
