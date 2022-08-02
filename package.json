@@ -1,6 +1,6 @@
 {
 	"name": "node-red-read-pdf",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Read PDF files for node-red",
 	"author": {
 		"name": "Aleksandar Djuran",
