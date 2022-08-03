@@ -33,9 +33,7 @@ module.exports = function(RED) {
         let errMsg = err.message || err;
         if (errMsg.includes('Error: ')) errMsg = errMsg.split("Error: ")[1];
         if (errMsg.includes('Invalid XRef stream header')) errMsg = "File is not pdf.";
-
         return errMsg;
-
     }
 
     function output(config) {
