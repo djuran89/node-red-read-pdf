@@ -1,12 +1,12 @@
 {
 	"name": "node-red-read-pdf",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Read PDF files for node-red",
 	"author": {
 		"name": "Aleksandar Djuran",
 		"email": "djuran89@icloud.com"
 	},
-	"license": "ISC",
+	"license": "Apache-2.0",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/djuran89/node-red-read-pdf.git"
